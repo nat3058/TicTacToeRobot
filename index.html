@@ -3,140 +3,495 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Showcase</title>
+    <meta name="description" content="Project Showcase: Static Hand Gesture Recognition - A wrist wearable using real-time machine learning for hand gesture recognition">
+    <meta name="keywords" content="hand gesture recognition, wearable technology, machine learning, real-time tracking">
+    <meta property="og:title" content="Static Hand Gesture Recognition Project">
+    <meta property="og:description" content="A wrist wearable using real-time machine learning to identify hand gestures">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Project Showcase: Static Hand Gesture Recognition</title>
     <style>
-        /* Add an animated gradient background */
-        body {
-            background-image: linear-gradient(-45deg, #3a86ff, #ff006e, #f1c40f, #2ecc71);
-            background-size: 400% 400%;
-            animation: gradient 30s ease infinite;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        :root {
+            --thumbnail-height: 250px;
+            --container-width: 80%;
+            --primary-color: #1eff47;
+            --secondary-color: #00bfff;
+            --background-gradient: linear-gradient(-90deg, #121212, #1e90ff, #00bfffb3, #1e1e1e);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
         }
 
-        /* Create a container for the PDF and video */
+        body {
+            background-image: var(--background-gradient);
+            background-size: 400% 400%;
+            animation: gradient 30s ease infinite;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
             padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
+
         .heading {
             text-align: center;
-            margin-bottom: 0px;
-            font-size: 40px;
+            margin: 10px 0;
+            font-size: clamp(24px, 5vw, 36px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--heading-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
         }
 
         .heading span {
             color: #fff;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: none;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: #fff;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Style the subheading */
         .subheading {
             text-align: center;
-            margin-bottom: 20px;
-            color: #fff;
+            margin: 0px auto 5px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(14px, 3vw, 18px);
+            max-width: 600px;
+            line-height: 1.6;
+            opacity: 0.9;
+            padding: 0 5px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Style the tags container */
         .tags-container {
-            text-align: center;
-            margin-bottom: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0 15px;
+            justify-content: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Style the tags */
         .tag {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
             color: #fff;
-            margin: 0 10px;
+            cursor: default;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
         }
 
-        /* Style the content container */
+        .tag:hover {
+            background: rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
         .content-container {
+            width: 100%;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 80%;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            background: rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        .thumbnail-container:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px var(--shadow-color);
+        }
+
+        .thumbnail-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            pointer-events: none;
+        }
+
+        .thumbnail-iframe {
             width: 100%;
-        }
-
-        /* Style the PDF iframe */
-        .pdf-container {
-            width: 90%;
-            height: 80vh;
+            height: var(--thumbnail-height);
             border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+            background: #000;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        /* Style the video iframe */
-        .video-container {
-            width: 560px;
-            height: 315px;
-            border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
+        .thumbnail-iframe.loading {
+            opacity: 0.5;
         }
 
-        /* Style the poster PDF iframe */
-        .poster-pdf-container {
-            width: 90%;
-            height: 80vh;
-            border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 3;
         }
 
-        /* Define the animation */
+        .caption {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            font-size: 16px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .caption:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .caption a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .caption a:hover {
+            color: var(--secondary-color);
+        }
+
+        .fa-external-link {
+            margin-left: 5px;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: transform 0.3s ease;
+        }
+
+        .fa-external-link:hover {
+            transform: translateX(2px);
+        }
+
+        .error-state {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 3;
+        }
+
+        .focus-ring {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        .keyboard-focus {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--secondary-color);
+        }
+
         @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .heading { 
+                font-size: clamp(22px, 5vw, 32px);
             }
-            50% {
-                background-position: 100% 50%;
+            
+            .subheading {
+                font-size: clamp(13px, 3vw, 17px);
+                padding: 0 15px;
             }
-            100% {
-                background-position: 0% 50%;
+
+            .thumbnail-container {
+                width: 90%;
             }
+        }
+
+        @media (max-width: 768px) {
+            .heading { 
+                margin: 15px 0;
+                font-size: clamp(20px, 5vw, 28px);
+            }
+            
+            .subheading {
+                margin: 3px auto 12px;
+                font-size: clamp(12px, 3vw, 16px);
+                padding: 0 10px;
+            }
+
+            .tags-container {
+                margin: 8px 0 10px;
+                gap: 8px;
+            }
+
+            .tag {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .thumbnail-container {
+                width: 95%;
+                --thumbnail-height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading { 
+                font-size: clamp(18px, 5vw, 24px);
+            }
+            
+            .subheading {
+                font-size: clamp(11px, 3vw, 15px);
+                padding: 0 5px;
+            }
+
+            .tag {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .thumbnail-container {
+                width: 98%;
+                --thumbnail-height: 180px;
+            }
+        }
+
+        /* Accessibility Enhancements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="heading">Project Showcase: <span>AI-Powered Tic-Tac-Toe Robot</span></h1>
-        <p class="subheading">
+        <h1 class="heading" tabindex="0">Project Showcase: <span>AI-Powered Tic-Tac-Toe Robot</span></h1>
+        <p class="subheading" role="description">
             An AI-powered Tic-Tac-Toe Robot that physically plays tic-tac-toe against a human at various difficulty modes, driven by an STM32 MCU
         </p>
-        <div class="tags-container">
-            <span class="tag">Embedded Systems</span>
-            <span class="tag">Device Drivers (C Programming)</span>
-            <span class="tag">System Integration</span>
+        
+        <div class="tags-container" role="list">
+            <span class="tag" role="listitem">Embedded Systems</span>
+            <span class="tag" role="listitem">Device Drivers (C Programming)</span>
+            <span class="tag" role="listitem">System Integration</span>
         </div>
+
         <div class="content-container">
-            <!-- Embed the YouTube video -->
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/0vpv7WT4TPM?si=1NgoJLmil1lBw_K8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <!-- Poster -->
+            <div class="thumbnail-container" data-href="./TictactoePoster.pdf">
+                <div class="loading-spinner"></div>
+                <iframe 
+                    class="thumbnail-iframe" 
+                    src="./TictactoePoster.pdf#toolbar=0&view=fitH" 
+                    aria-label="Project poster PDF"
+                    onload="this.previousElementSibling.style.display = 'none'"
+                    loading="lazy"
+                ></iframe>
+                <div class="caption">
+                    <a href="./TictactoePoster.pdf" target="_blank" aria-label="Open project poster in new tab">
+                        Project Poster <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
             </div>
-            
-            <!-- Embed the project poster PDF -->
-            <div class="poster-pdf-container">
-                <iframe src="./TictactoePoster.pdf" frameborder="0" width="100%" height="100%"></iframe>
+
+            <!-- Video -->
+            <div class="thumbnail-container" data-href="https://www.youtube.com/watch?v=0vpv7WT4TPM" tabindex="0">
+                <div class="loading-spinner"></div>
+                <div class="error-state" aria-live="polite" style="display: none;">Error loading video</div>
+                <iframe 
+                    class="thumbnail-iframe" 
+                    src="https://www.youtube.com/embed/0vpv7WT4TPM" 
+                    aria-label="Project video"
+                    onload="handleIframeLoad(this)"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    loading="lazy"
+                ></iframe>
+                <div class="caption">
+                    <a href="https://www.youtube.com/watch?v=0vpv7WT4TPM" target="_blank" aria-label="Open project video in new tab">
+                        Project Video <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
             </div>
-            
         </div>
     </div>
-</body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7JB3EMBZGV"></script>
+    <div class="footer">
+        <p>Template created by <a href="https://nat3058.github.io" target="_blank">Nathan N.</a> 
+            | <a href="https://github.com/nat3058/Clean-Project-Showcase-Template" target="_blank">View Template on GitHub</a></p>
+    </div>
+
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-7JB3EMBZGV');
+        // Handle iframe loading with error state
+        function handleIframeLoad(iframe) {
+            const container = iframe.parentElement;
+            const spinner = container.querySelector('.loading-spinner');
+            const errorState = container.querySelector('.error-state');
+            
+            try {
+                spinner.style.display = 'none';
+                errorState.style.display = 'none';
+            } catch (error) {
+                spinner.style.display = 'none';
+                errorState.style.display = 'block';
+                errorState.textContent = 'Error loading content';
+            }
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.querySelectorAll('.thumbnail-container').forEach(container => {
+                    container.classList.remove('keyboard-focus');
+                });
+            }
+        });
+
+        document.querySelectorAll('.thumbnail-container').forEach(container => {
+            container.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'A') {
+                    e.preventDefault();
+                    const href = container.dataset.href;
+                    if (href) {
+                        window.open(href, '_blank');
+                    }
+                }
+            });
+
+            container.addEventListener('focus', () => {
+                container.classList.add('keyboard-focus');
+            });
+
+            container.addEventListener('blur', () => {
+                container.classList.remove('keyboard-focus');
+            });
+        });
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
+</body>
 </html>
